@@ -1,14 +1,15 @@
 import { v4 as uuid } from 'uuid';
+import Address from '../value-objects/address.vo';
 
 export default class Customer {
   private _id: string
   private _name: string
   private _email: string
-  private _address!: string
+  private _address!: Address
   private _is_active: boolean
   private _created_at: Date
 
-  constructor(name: string, email: string, address?: string, is_active?: boolean) {
+  constructor(name: string, email: string, address?: Address, is_active?: boolean) {
     this._id = uuid()
     this._name = name
     this._email = email
@@ -28,6 +29,18 @@ export default class Customer {
       throw new Error(`email is required`)
 
     return true
+  }
+
+  changeName(name: string): void {
+    this._name = name
+  }
+
+  changeEmail(email: string): void {
+    this._email = email
+  }
+
+  changeAddress(address: Address): void {
+    this._address = address
   }
 
   activate(): void {
@@ -54,7 +67,7 @@ export default class Customer {
     return this._email
   }
 
-  get address(): string {
+  get address(): Address {
     return this._address
   }
 
